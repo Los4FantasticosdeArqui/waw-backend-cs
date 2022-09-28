@@ -45,7 +45,7 @@ jobs:
           sed -i 's/$CLOUDSQL_PASSWORD/${{ secrets.CLOUDSQL_PASSWORD }}/g' WAW.API/app.yaml
           sed -i 's/$CLOUDSQL_CONN_NAME/${{ secrets.CLOUDSQL_CONN_NAME }}/g' WAW.API/app.yaml
           sed -i 's/$CLOUDSQL_DB_NAME/${{ secrets.CLOUDSQL_DB_NAME }}-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/g' WAW.API/app.yaml
-          sed -i 's/$APPENGINE_SERVICE_NAME/aspnet-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/g' WAW.API/app.yaml
+          sed -i 's/$APPENGINE_SERVICE_NAME/${{ github.ref_name == 'main' && 'default' || 'staging' }}/g' WAW.API/app.yaml
           sed -i 's/$ASPNETCORE_ENVIRONMENT/${{ github.ref_name == 'main' && 'Production' || 'Staging' }}/g' WAW.API/Dockerfile
       - name: Build
         run: dotnet build --no-restore --configuration Release
