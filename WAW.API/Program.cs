@@ -114,10 +114,10 @@ try {
 
   // Configure the HTTP request pipeline.  
   // Trust the reverse proxy
+  app.UseForwardedHeaders();
   app.UseSwagger();
   app.UseSwaggerUI();
-  app.UseForwardedHeaders();
-
+  
   if (!app.Environment.IsEnvironment("Testing")) {
     // Apply any migrations needed automatically
     var scope = app.Services.CreateScope();
