@@ -10,7 +10,7 @@ using WAW.API.Shared.Extensions;
 
 namespace WAW.API.Job.Controllers;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("[controller]")]
 [Produces(MediaTypeNames.Application.Json)]

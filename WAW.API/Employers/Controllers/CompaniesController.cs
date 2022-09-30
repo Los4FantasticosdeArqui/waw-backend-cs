@@ -11,7 +11,7 @@ namespace WAW.API.Employers.Controllers;
 
 using Domain.Models;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
