@@ -1,0 +1,51 @@
+name: .NET
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  
+jobs:
+  build-test:
+    name: Build and Test
+    env:
+      PROJECT_NAME: WAW.API
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup MySQL for tests
+      uses: shogo82148/actions-setup-mysql@v1
+      with:
+        mysql-version: 8.0
+        root-password: tests
+    - name: Initialize database for tests
+      run: mysql -h127.0.0.1 -uroot -ptests -e 'CREATE DATABASE tests'
+    - uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      id: restore
+      run: dotnet restore --locked-mode
+    - name: Build
+      id: build
+      run: dotnet build --no-restore --configuration Release
+    - name: Test
+      id: test
+      env:
+        DbConnectionString: server=127.0.0.1;database=tests;user=root;password=tests
+      run: dotnet test --no-build --verbosity normal --configuration Release --logger "trx;LogFileName=test-results.trx"
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      if: (success() || failure()) && steps.build.outcome == 'success'
+      with:
+        name: ${{ env.PROJECT_NAME }}-Release-${{ runner.os }}-${{ github.run_id }}
+        path: ${{ env.PROJECT_NAME }}/bin/Release/net6.0/**
