@@ -22,7 +22,7 @@ In order to make it available for client applications.
       | Id | Title                                     | Image                                                                                                         | Description                                                                                            | SalaryRange | Status
       | 1  | Remote Software Engineer                  | https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 | This is a unique role that offers broad exposure to the systems and data that span our entire business | $115k-$117k | true
       | 2  | Remote Senior Embedded Android Specialist | https://miro.medium.com/max/875/1*8si943UlaDsBo8i7xm-bGg.png                                                  | Hinge Health is building a digital MSK clinic and is looking for experienced embedded developers       | $145k-$157k | true
-    When a POST request is sent to Companies
+    When a POST request is sent to Jobs
       | Id | Title                            | Image                                                                                                           | Description                                                                   | SalaryRange  | Status
       | 3  | Remote Lead UX Researcher Motion | https://images.pexels.com/photos/3471423/pexels-photo-3471423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 | We're looking for a mission-driven individual to join us in creating engaging | $$145k-$160k | false
     Then a JobsResource response with status 200 is received
